@@ -45,7 +45,7 @@ const Register = () => {
       </label>
     </div>
   </div>
-  <div class="col-12">
+  <div class="col-12 p-4">
     <button type="submit" class="btn btn-primary">Sign in</button>
   </div>
 </form>

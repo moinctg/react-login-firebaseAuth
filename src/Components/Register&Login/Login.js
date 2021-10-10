@@ -2,6 +2,10 @@ import {GoogleAuthProvider,getAuth,signInWithPopup,GithubAuthProvider, FacebookA
 import React from 'react';
 import loginImg from '../../img/login.jpg';
 import react, {useState} from 'react';
+import {
+
+  Link
+} from "react-router-dom";
 
 import { Form,Row,Col,Button,varient } from 'react-bootstrap';
 
@@ -60,7 +64,7 @@ const Login = () => {
       
       <div className="row">
       <h1 className="  text-center ">Sign In Information </h1>
-        <div className=" col-md-4 ">
+        <div className=" col-md-4 p-5">
           
         <Form>
   <Form.Group as={Row} className="mb-2" controlId="formHorizontalEmail">
@@ -93,25 +97,19 @@ const Login = () => {
     </Col>
   </Form.Group>
 </Form>
+            <p className="text-primary"> Are you new please register</p>
+            <p className="text-primary">Already have an Account? <Link to="/login"> Login</Link> </p>
+            <Button className="m-3" variant="primary" onClick={eventHandelerGoogle}>Google Signin</Button>
+
+            <Button className="m-3" variant="success" onClick={eventHandelerGithub}>Github Signin</Button>
 </div>
 
       
        <div className=" col-md-8 p-4">
        <img className="img-fluid" src={loginImg}  alt=""/>
        </div>
-
-     
-
-        
         </div>
           
-
-<p className="text-primary"> Are you new please register</p>
-       <p className="text-primary">Already have an Account? </p>
-       <Button className="m-3"  variant="primary"  onClick={eventHandelerGoogle}>Google Signin</Button>
-      
-       <Button  className="m-3" variant="success" onClick={eventHandelerGithub}>Github Signin</Button>
-
 
 {
       user.email && <div>

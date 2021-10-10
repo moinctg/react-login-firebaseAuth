@@ -3,7 +3,7 @@ import React from 'react';
 const Footer = () => {
     return (
         <div>
-            <div className="bg-primary">
+            <div className="bg-primary text-white p-3">
                 <div className="row">
                     <div className="col-md-3">
                         <h2>AmrFood.com</h2>
@@ -19,13 +19,14 @@ Currently v5.1.3.</p>
 
                     </div>
                     <div className="col-md-3">
-                        <p>Contact:
-                            880-1824682965
-                        </p>
+                        <h3>Contact</h3>
+                         <p>880-1824682965</p>   
+                        
 
                     </div>
                     <div className="col-md-3">
-                        <p>Social media</p>
+                        <h3>Social media</h3>
+                        <p></p>
 
                     </div>
                     <p className="text-center text-white">Al Right Reserved @AmrFood.com</p>
