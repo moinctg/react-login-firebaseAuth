@@ -10,27 +10,42 @@ import intializeAutentication from '../../Firebase/FirebaseInitialize';
 intializeAutentication();
 
 const Register = () => {
-  const [email,setEmail] = useState({});
-  const [password,setPassword] = useState({});
+  const [email,setEmail] = useState('');
+  const [password,setPassword] = useState('');
+  const [error,setError] = useState('');
   const auth = getAuth();
 
   
 
-  const handleEmailChange = e => {
-    setEmail(e.target.Value);
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+    // console.log(e.target.value);
   }
-  const handlePasswordChange = e => {
-    setPassword(e.target.Value);
+  const handlePasswordChange = (e)  => {
+    setPassword(e.target.value);
   }
   const handleRegister = e => {
+    e.preventDefault();
+    if(password.length<6){
+      setError('Password will be at least 6 charector ');
+      return;
+    }
+    if(/^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[a-zA-Z!#$@^%&? "])[a-zA-Z0-9!#$@^%&?]{8,20}$/.test(password)){
+      setError('password should contain atleast one number and one special character ');
+      return;
+    }
     console.log(email,password);
   
     createUserWithEmailAndPassword(auth,email,password)
     .then(result =>{
       const user = result.user;
       console.log(user);
+      setError('');
     })
-    e.preventDefault();
+    .catch(error=>{
+      setError(error.message);
+    })
+    
   }
   
     return (
@@ -65,7 +80,7 @@ const Register = () => {
       <Form.Check label="Remember me" />
     </Col>
   </Form.Group>
-
+<div className="row mb-3 text-danger">{error}</div>
   <Form.Group as={Row} className="mb-3">
     <Col sm={{ span: 10, offset: 2 }}>
       <Button varient="primary"  type="submit">Register</Button>
