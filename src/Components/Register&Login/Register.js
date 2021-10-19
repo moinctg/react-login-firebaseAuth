@@ -10,12 +10,16 @@ import intializeAutentication from '../../Firebase/FirebaseInitialize';
 intializeAutentication();
 
 const Register = () => {
-  const [email,setEmail] = useState('');
-  const [password,setPassword] = useState('');
-  const [error,setError] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [user, setUser] = useState({});
+  const [error, setError] = useState('');
+  const [isLogin,setIsLogin] = useState(false);
   const auth = getAuth();
 
-  
+  const toggleLogin= (e)=>{
+    setIsLogin(e.target.checked)
+  }
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -34,12 +38,21 @@ const Register = () => {
       setError('password should contain atleast one number and one special character ');
       return;
     }
-    console.log(email,password);
+    // console.log(email,password);
   
     createUserWithEmailAndPassword(auth,email,password)
     .then(result =>{
-      const user = result.user;
-      console.log(user);
+      const  {displayName,email,photoURL} = result.user;
+      const loggedUser={
+        name:displayName,
+        email:email,
+        photo:photoURL
+      }
+      setUser(loggedUser)
+     
+      // const user = result.user;
+      // console.log(user);
+    
       setError('');
     })
     .catch(error=>{
@@ -53,7 +66,15 @@ const Register = () => {
     <div className="my-4 p-4">
       
       <div className="row">
-      <h1 className="  text-center ">Plsease! Register </h1>
+        <h4>{error}</h4>
+        {
+          email &&  <div> 
+        <h3 className="text-primary "> Congratulation to,Mr{user.email}</h3>
+          </div>
+        
+        }
+    
+      <h1 className="  text-center ">Please! {isLogin? 'Login':'Register'} </h1>
         <div className=" col-md-4 p-5">
           
         <Form onSubmit={handleRegister}>
@@ -77,13 +98,13 @@ const Register = () => {
 
   <Form.Group as={Row} className="mb-3" controlId="formHorizontalCheck">
     <Col sm={{ span: 10, offset: 2 }}>
-      <Form.Check label="Remember me" />
+      <Form.Check onChange={toggleLogin} label="Already Register" />
     </Col>
   </Form.Group>
 <div className="row mb-3 text-danger">{error}</div>
   <Form.Group as={Row} className="mb-3">
     <Col sm={{ span: 10, offset: 2 }}>
-      <Button varient="primary"  type="submit">Register</Button>
+      <Button varient="primary"  type="submit">{isLogin? 'Login':'Register'}</Button>
     </Col>
   </Form.Group>
 </Form>
